@@ -1,11 +1,14 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
-    <h2>App</h2>
+  <div class="app">
     <router-view></router-view>
-    <div>111111111111111111111</div>
   </div>
 </template>
 
-<style scoped></style>
+<style lang="less" scoped>
+.app {
+  width: 100vw;
+  height: 100vh;
+}
+</style>

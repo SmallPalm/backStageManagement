@@ -1,18 +1,34 @@
 <template>
-  <div>
-    <h2>{{ message }}</h2>
-    <h2>{{ counter.count }} - {{ counter.double }}</h2>
+  <div class="login">
+    <h1 class="login-title">CMS后台管理系统</h1>
+    <div class="login-container">
+      <login-panel></login-panel>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue"
-import useCounter from "../../store/counter"
-
-const message = "loginPage"
-
-const counter = useCounter()
-console.log(counter)
+import loginPanel from "./component/login-panel.vue"
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  background-image: url(../../assets/image/login-bg.svg);
+
+  .login-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 10px;
+  }
+}
+</style>

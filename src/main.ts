@@ -9,9 +9,12 @@ import router from "./router"
 
 // 状态管理
 import pinia from "./store"
+// 全局Icon
+import { globalElIcons } from "./global"
 
 const app = createApp(App)
 
+app.use(globalElIcons)
 app.use(router)
 app.use(pinia)
 
