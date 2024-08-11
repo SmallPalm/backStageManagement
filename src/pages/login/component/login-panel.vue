@@ -1,8 +1,8 @@
 <template>
   <div class="panel">
     <div class="panel-tabs">
-      <el-tabs stretch type="border-card" @tab-click="tabActiveClick">
-        <el-tab-pane>
+      <el-tabs stretch type="border-card" @tab-click="tabActiveClick" v-model="tabActiveName">
+        <el-tab-pane name="account">
           <template #label>
             <div class="label-account">
               <el-icon>
@@ -11,9 +11,9 @@
               <span class="account">帐号登录</span>
             </div>
           </template>
-          <panel-account></panel-account>
+          <panel-account ref="panelAccountRef"></panel-account>
         </el-tab-pane>
-        <el-tab-pane>
+        <el-tab-pane name="phone">
           <template #label>
             <div class="label-phone">
               <el-icon>
@@ -31,7 +31,7 @@
         <el-checkbox v-model="isKeep" label="记住密码" size="large" />
         <el-link type="primary" :underline="false">忘记密码</el-link>
       </div>
-      <el-button class="panel-submit" size="large" type="primary">
+      <el-button class="panel-submit" size="large" type="primary" @click="panelSubmitClick">
         立即登录
       </el-button>
     </div>
@@ -43,10 +43,22 @@ import { reactive, ref } from "vue"
 import PanelAccount from "./panel-account.vue"
 import PanelPhone from "./panel-phone.vue"
 
-let isKeep = ref(false)
+const isKeep = ref(false)
 const isFilled = ref(false)
+const tabActiveName = ref("account")
+// <InstanceType<typeof PanelAccount>>: 难点
+const panelAccountRef = ref<InstanceType<typeof PanelAccount>>()
+// tab切换
 const tabActiveClick = () => {
   isFilled.value = !isFilled.value
+}
+// 登录
+const panelSubmitClick = () => {
+  if (tabActiveName.value === "account") {
+    console.log(panelAccountRef.value?.submit())
+  } else if (tabActiveName.value === "phone") {
+    console.log("11111")
+  }
 }
 </script>
 
