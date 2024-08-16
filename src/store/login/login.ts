@@ -1,20 +1,20 @@
 import { defineStore } from "pinia"
 import { accountLoginRes } from "@/service/api/login"
 import { TOKEN } from "@/global/constant"
+import { localCache } from "@/utlis/cacheStorage"
 
 const useLoginStore = defineStore("login", {
   state: () => ({
     token: "",
-    id: "",
-    name: ""
+    userInfo: {}
   }),
   actions: {
     async accountLoginAction(account: object) {
       // 获取token
       const loginRes = await accountLoginRes(account)
       console.log(loginRes)
-
-      localStorage.setItem(TOKEN, loginRes.token)
+      // 存储Token
+      localCache.setCache(TOKEN, loginRes.token)
     }
   }
 })
