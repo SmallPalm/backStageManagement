@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <div class="panel-tabs">
-      <el-tabs stretch type="border-card" @tab-click="tabActiveClick" v-model="tabActiveName">
+      <el-tabs :stretch="true" type="border-card" @tab-click="tabActiveClick" v-model="tabActiveName">
         <el-tab-pane name="account">
           <template #label>
             <div class="label-account">
@@ -31,9 +31,7 @@
         <el-checkbox v-model="isKeep" label="记住密码" size="large" />
         <el-link type="primary" :underline="false">忘记密码</el-link>
       </div>
-      <el-button class="panel-submit" size="large" type="primary" @click="panelSubmitClick">
-        立即登录
-      </el-button>
+      <el-button class="panel-submit" size="large" type="primary" @click="panelSubmitClick"> 立即登录 </el-button>
     </div>
   </div>
 </template>
@@ -55,7 +53,7 @@ const tabActiveClick = () => {
 // 登录
 const panelSubmitClick = () => {
   if (tabActiveName.value === "account") {
-    console.log(panelAccountRef.value?.submit())
+    panelAccountRef.value?.submit()
   } else if (tabActiveName.value === "phone") {
     console.log("11111")
   }
