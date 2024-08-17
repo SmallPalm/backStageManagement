@@ -23,6 +23,7 @@ import type { FormRules, ElForm } from "element-plus"
 import { reactive, ref, onMounted } from "vue"
 import useLoginStore from "@/store/login/login"
 import { createCodeImg } from "@/service/api/login"
+import router from "@/router"
 
 onMounted(() => {
   getCodeImg()
@@ -64,7 +65,15 @@ function submit() {
   accountFormRef.value?.validate((valid) => {
     if (valid) {
       // ElMessage.success("登录成功")
-      loginStore.accountLoginAction(account)
+      loginStore.accountLoginAction(account).then((res) => {
+        if (res.code == 200) {
+          ElMessage({
+            message: "登录成功",
+            type: "success"
+          })
+          router.push("/main")
+        }
+      })
     } else {
       ElMessage.error("请输入正确的帐号和密码")
     }
