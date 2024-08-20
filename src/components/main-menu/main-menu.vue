@@ -5,7 +5,8 @@
       <h2 class="menu-title">{{ message ?? "后台管理" }}</h2>
     </div>
     <div>
-      <el-menu default-active="2" class="el-menu-vertical-demo" background-color="" text-color="#fff">
+      <el-menu default-active="2" class="el-menu-vertical-demo" :background-color="variable.menuBgColor"
+        text-color="#fff">
         <el-sub-menu index="1">
           <template #title>
             <el-icon>
@@ -49,6 +50,8 @@
 </template>
 
 <script setup lang="ts">
+import variable from "@/assets/css/variable.module.less"
+
 const imgSvg = "../../assets/image/logo.svg"
 const message = "后台管理系统"
 </script>

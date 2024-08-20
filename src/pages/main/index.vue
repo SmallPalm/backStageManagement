@@ -28,6 +28,8 @@ function outLogin() {
 </script>
 
 <style lang="less" scoped>
+@import "@/assets/css/variable.module.less";
+
 .container {
   height: 100vh;
 
