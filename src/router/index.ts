@@ -33,7 +33,7 @@ const router = createRouter({
 // 例子: from: / => to: /main
 router.beforeEach((to, from) => {
   const token = localCache.getCache(TOKEN)
-  if (to.path === "/main" && !token) {
+  if (to.path !== "/login" && !token) {
     return "/login"
   }
 })

@@ -10,12 +10,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
 import loginPanel from "./component/login-panel.vue"
-import { localCache } from "@/utlis/cacheStorage"
-import { TOKEN } from "@/global/constant"
-
-onMounted(() => {
-  localCache.removeCache(TOKEN)
-})
 </script>
 
 <style lang="less" scoped>

@@ -37,11 +37,20 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue"
+import { reactive, ref, watch } from "vue"
 import PanelAccount from "./panel-account.vue"
 import PanelPhone from "./panel-phone.vue"
+import { sessionCache } from "@/utlis/cacheStorage"
 
-const isKeep = ref(false)
+const isKeep = ref<boolean>(sessionCache.getCache("isKeep") ?? false)
+watch(
+  () => isKeep.value,
+  (newValue) => {
+    console.log(newValue)
+    sessionCache.setCache("isKeep", newValue)
+  }
+)
+
 const isFilled = ref(false)
 const tabActiveName = ref("account")
 // <InstanceType<typeof PanelAccount>>: 难点
@@ -53,7 +62,7 @@ const tabActiveClick = () => {
 // 登录
 const panelSubmitClick = () => {
   if (tabActiveName.value === "account") {
-    panelAccountRef.value?.submit()
+    panelAccountRef.value?.submit(isKeep.value)
   } else if (tabActiveName.value === "phone") {
     console.log("11111")
   }

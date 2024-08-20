@@ -24,6 +24,7 @@ import { reactive, ref, onMounted } from "vue"
 import useLoginStore from "@/store/login/login"
 import { createCodeImg } from "@/service/api/login"
 import router from "@/router"
+import { sessionCache } from "@/utlis/cacheStorage"
 
 onMounted(() => {
   getCodeImg()
@@ -50,20 +51,31 @@ const accountRules = reactive<FormRules>({
   code: [{ required: true, trigger: "change", message: "请输入验证码" }]
 })
 
+const USER_NAME = "username"
+const PASSWORD = "password"
+
 const loginStore = useLoginStore()
 const accountFormRef = ref<InstanceType<typeof ElForm>>()
 
 const account = reactive({
-  username: "",
-  password: "",
+  username: sessionCache.getCache(USER_NAME) ?? "",
+  password: sessionCache.getCache(PASSWORD) ?? "",
   code: "",
   uuid: ""
 })
 const codeImg = ref("")
 
-function submit() {
+function submit(isKeep: boolean) {
   accountFormRef.value?.validate((valid) => {
     if (valid) {
+      if (isKeep) {
+        sessionCache.setCache(USER_NAME, account.username)
+        sessionCache.setCache(PASSWORD, account.password)
+      } else {
+        sessionCache.removeCache(USER_NAME)
+        sessionCache.removeCache(PASSWORD)
+      }
+
       // ElMessage.success("登录成功")
       loginStore.accountLoginAction(account).then((res) => {
         if (res.code == 200) {
@@ -75,7 +87,11 @@ function submit() {
         }
       })
     } else {
-      ElMessage.error("请输入正确的帐号和密码")
+      if (!account.code) {
+        ElMessage.error("请输入验证码")
+      } else {
+        ElMessage.error("请输入正确的帐号和密码")
+      }
     }
   })
 }

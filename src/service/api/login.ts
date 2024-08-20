@@ -19,3 +19,9 @@ export function getInfo() {
     url: "/getInfo"
   })
 }
+// 退出登录
+export function logout() {
+  return hyRequest.post({
+    url: "/logout"
+  })
+}
