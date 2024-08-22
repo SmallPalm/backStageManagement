@@ -7,52 +7,41 @@
     <div>
       <el-menu default-active="2" class="el-menu-vertical-demo" :background-color="variable.menuBgColor"
         text-color="#fff">
-        <el-sub-menu index="1">
-          <template #title>
-            <el-icon>
-              <location />
-            </el-icon>
-            <span>Navigator One</span>
+        <div v-if="authRouter.length">
+          <template v-for="item in authRouter" :key="item.name">
+            <el-sub-menu :index="item.path">
+              <template #title>
+                <i class="el-icon-location"></i>
+                <span>{{ item.meta.title }}</span>
+              </template>
+
+              <template v-for="subItem in item.children" :key="subItem.name">
+                <el-menu-item :index="subItem.path">
+                  <i class="el-icon-location"></i>
+                  <span>{{ subItem.meta.title }}</span>
+                </el-menu-item>
+              </template>
+            </el-sub-menu>
           </template>
-          <el-menu-item-group title="Group One">
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="Group Two">
-            <el-menu-item index="1-3">item three</el-menu-item>
-          </el-menu-item-group>
-          <el-sub-menu index="1-4">
-            <template #title>item four</template>
-            <el-menu-item index="1-4-1">item one</el-menu-item>
-          </el-sub-menu>
-        </el-sub-menu>
-        <el-menu-item index="2">
-          <el-icon>
-            <Menu />
-          </el-icon>
-          <span>Navigator Two</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <el-icon>
-            <document />
-          </el-icon>
-          <span>Navigator Three</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <el-icon>
-            <setting />
-          </el-icon>
-          <span>Navigator Four</span>
-        </el-menu-item>
+        </div>
       </el-menu>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { watch, ref } from "vue"
 import variable from "@/assets/css/variable.module.less"
+import useUserStore from "@/store/user/user"
 
-const imgSvg = "../../assets/image/logo.svg"
+const userStore = useUserStore()
+const authRouter = ref<any>([])
+watch(
+  () => userStore.authRouter,
+  (newVal) => {
+    authRouter.value = newVal
+  }
+)
 const message = "后台管理系统"
 </script>
 

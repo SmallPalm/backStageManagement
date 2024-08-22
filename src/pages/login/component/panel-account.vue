@@ -84,6 +84,11 @@ function submit(isKeep: boolean) {
             type: "success"
           })
           router.push("/main")
+        } else {
+          ElMessage({
+            message: res.msg,
+            type: "error"
+          })
         }
       })
     } else {

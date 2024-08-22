@@ -13,12 +13,7 @@ export function createCodeImg() {
     url: "/captchaImage"
   })
 }
-// 获取用户信息
-export function getInfo() {
-  return hyRequest.get({
-    url: "/getInfo"
-  })
-}
+
 // 退出登录
 export function logout() {
   return hyRequest.post({

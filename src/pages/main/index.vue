@@ -18,7 +18,11 @@ import { TOKEN, USER_INFO } from "@/global/constant"
 import router from "@/router"
 import { localCache } from "@/utlis/cacheStorage"
 import { ElMessage } from "element-plus"
+import useUserStore from "@/store/user/user"
 import mainMenu from "@/components/main-menu/main-menu.vue"
+
+const userStore = useUserStore()
+userStore.getUserInfo()
 function outLogin() {
   localCache.removeCache(TOKEN)
   localCache.removeCache(USER_INFO)
