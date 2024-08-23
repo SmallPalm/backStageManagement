@@ -2,7 +2,7 @@
   <div>
     <el-container class="container">
       <el-aside width="200px" class="aside">
-        <main-menu></main-menu>
+        <main-menu class="sidebar-container"></main-menu>
       </el-aside>
       <el-container>
         <el-header class="header">Header</el-header>
@@ -37,6 +37,7 @@ function outLogin() {
     overflow-y: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -48,6 +49,7 @@ function outLogin() {
 
   .main {
     background-color: #ff0;
+    box-sizing: border-box;
   }
 
   .footer {
