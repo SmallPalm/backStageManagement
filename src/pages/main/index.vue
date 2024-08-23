@@ -14,20 +14,14 @@
 </template>
 
 <script setup lang="ts">
-import { TOKEN, USER_INFO } from "@/global/constant"
-import router from "@/router"
-import { localCache } from "@/utlis/cacheStorage"
-import { ElMessage } from "element-plus"
 import useUserStore from "@/store/user/user"
+import useLoginStore from "@/store/login/login"
 import mainMenu from "@/components/main-menu/main-menu.vue"
 
 const userStore = useUserStore()
 userStore.getUserInfo()
 function outLogin() {
-  localCache.removeCache(TOKEN)
-  localCache.removeCache(USER_INFO)
-  ElMessage.success("退出登录成功")
-  router.push("/login")
+  useLoginStore().accountLogoutAction()
 }
 </script>
 
@@ -39,6 +33,13 @@ function outLogin() {
 
   .aside {
     background-color: @menu-bg-color;
+    // 取消侧边栏的滚动条
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .header {

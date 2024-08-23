@@ -1,12 +1,8 @@
 <template>
   <div class="main-menu">
-    <div class="menu-top">
-      <img class="menu-logo" src="../../assets/image/logo.svg" alt="" />
-      <h2 class="menu-title">{{ message ?? "后台管理" }}</h2>
-    </div>
-    <div>
-      <el-menu default-active="2" class="el-menu-vertical-demo" :background-color="variable.menuBgColor"
-        text-color="#fff">
+    <logo></logo>
+    <el-scrollbar wrap-class="scrollbar-wrapper">
+      <el-menu default-active="2" class="el-menu-vertical-demo" :background-color="variable.menuBgColor" text-color="#fff" :unique-opened="true" :collapse-transition="false" mode="vertical">
         <div v-if="authRouter.length">
           <template v-for="item in authRouter" :key="item.name">
             <el-sub-menu :index="item.path">
@@ -25,14 +21,16 @@
           </template>
         </div>
       </el-menu>
-    </div>
+    </el-scrollbar>
   </div>
 </template>
 
 <script setup lang="ts">
 import { watch, ref } from "vue"
+import settings from "@/global/settings"
 import variable from "@/assets/css/variable.module.less"
 import useUserStore from "@/store/user/user"
+import logo from "@/components/logo/logo.vue"
 
 const userStore = useUserStore()
 const authRouter = ref<any>([])
@@ -42,31 +40,15 @@ watch(
     authRouter.value = newVal
   }
 )
-const message = "后台管理系统"
 </script>
 
 <style lang="less" scoped>
 .main-menu {
+  position: relative;
   cursor: pointer;
+}
 
-  .menu-top {
-    display: flex;
-    align-items: center;
-    height: 60px;
-    line-height: 60px;
-    justify-content: center;
-
-    .menu-logo {
-      width: 20px;
-    }
-
-    .menu-title {
-      margin-left: 10px;
-      font-size: 20px;
-      font-weight: 700;
-      text-align: center;
-      color: #ccc;
-    }
-  }
+.el-menu-vertical-demo {
+  overflow: hidden;
 }
 </style>

@@ -1,11 +1,13 @@
 import { defineStore } from "pinia"
-import { accountLoginRes } from "@/service/api/login"
-import { TOKEN } from "@/global/constant"
+import { accountLoginRes, logout } from "@/service/api/login"
+import { TOKEN, USER_INFO } from "@/global/constant"
+import { ElMessage } from "element-plus"
+import router from "@/router"
 import { localCache } from "@/utlis/cacheStorage"
 
 const useLoginStore = defineStore("login", {
   state: () => ({
-    token: ""
+    token: localCache.getCache(TOKEN) ?? ""
   }),
   actions: {
     async accountLoginAction(account: object) {
@@ -21,6 +23,18 @@ const useLoginStore = defineStore("login", {
         localCache.setCache(TOKEN, loginRes.token)
 
         return loginRes
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async accountLogoutAction() {
+      try {
+        const res = await logout()
+        console.log(res)
+        localCache.removeCache(TOKEN)
+        localCache.removeCache(USER_INFO)
+        ElMessage.success("退出登录成功")
+        router.push("/login")
       } catch (err) {
         console.log(err)
       }

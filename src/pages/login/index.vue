@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <h1 class="login-title">CMS后台管理系统</h1>
+    <h1 class="login-title">{{ settings.title }}</h1>
     <div class="login-container">
       <login-panel></login-panel>
     </div>
@@ -10,6 +10,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue"
 import loginPanel from "./component/login-panel.vue"
+import settings from "@/global/settings"
 </script>
 
 <style lang="less" scoped>

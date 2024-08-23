@@ -1,7 +1,35 @@
 @color-primary: #fff;
 @menu-bg-color: #021128;
+@base-sidebar-width: 200px;
 
+
+// 默认菜单主题风格
+@base-menu-background: #304156;
+
+// 菜单颜色
+@base-menu-color: #bfcbd9;
+@base-menu-color-active: #f4f4f5;
+
+
+@base-sub-menu-background: #1f2d3d;
+@base-sub-menu-hover: #001528;
 :export {
+  // 菜单颜色
+  menuColor: @base-menu-color;
+  menuColorActive: @base-menu-color-active;
+  
+  // 菜单主题风格
   colorPrimary: @color-primary;
+
+  // 侧边栏背景
   menuBgColor: @menu-bg-color;
+
+  // 侧边栏宽度
+  sideBarWidth: @base-sidebar-width;
+
+  // 菜单背景
+  menuBackground: @base-menu-background;
+
+  subMenuBackground: @base-sub-menu-background;
+  subMenuHover: @base-sub-menu-hover;
 }
